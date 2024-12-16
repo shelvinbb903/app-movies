@@ -10,9 +10,12 @@ export class PaginationComponent {
   @Input() currentPage: number = 0;
   @Output() onSelectPage = new EventEmitter<number>();
 
-  async ngOnInit() {
-  }
-
+  
+  /**
+   * Metodo para seleccionar una pagina y notificarlo al componente padre
+   * 
+   * @param page Pagina a seleccionar
+   */
   async select(page: number) {
     this.currentPage = page;
     this.onSelectPage.emit(this.currentPage);

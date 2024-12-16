@@ -1,12 +1,15 @@
 <div class="container mt-3 mb-4 p-3">
-    <div class="row p-0 mb-2">
-        <div class="input-group flex-nowrap p-0">
+    
+    <nav class="navbar fixed-top navbar-light bg-lightrow">
+        <div class="input-group ps-5 pe-5">
             <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="addon-wrapping" [(ngModel)]="search" (keyup.enter)="searchMovie()">
             <button class="btn btn-primary" type="button" id="button-addon2" (click)="searchMovie()"><i class="bi bi-search"></i></button>
         </div>
-    </div>
-
-    <div class="row p-0">        
+    </nav>       
+    
+    
+    
+    <div class="row p-0 mt-4">        
         <div class="col-md-6 col-xl-4 col-lg-4 col-xxl-4 col-sm-12 p-1" *ngFor="let item of listMovies" (click)="openModalMovieDetail(content, item.id)">
             <div class="card list-movies">
                 <div class="card-body">
@@ -30,12 +33,12 @@
 
     <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (onSelectPage)="selectPage($event)"></app-pagination>
 
-    <app-modal-detail></app-modal-detail>
-
+ 
+    
     <ng-template #content let-modal>
         <div class="modal-header">
-            <h4 class="modal-title">{{ objDetail.title }}</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            <h6 class="modal-title">{{ objDetail.title }}</h6>
+            <button type="button" class="btn-close btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
             <div class="card">

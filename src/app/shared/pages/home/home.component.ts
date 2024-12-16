@@ -33,16 +33,13 @@ export class HomeComponent implements OnInit {
 	 */
 	async ngOnInit() {
 		this.currentPage = 1;
-		const {error, data}:any = await this.movieSer.getData(`${environment.URL_API}/genre/movie/list?language=es`);
-		if(!error) {
-			this.listGenres = [...data.genres]
-		}
 		this.getMovies(this.currentPage);
 	}
 
 	/**
+	 * Metodo para listar las peliculas por pagina
 	 * 
-	 * @param page 
+	 * @param page Pagina a mostrar
 	 */
 	async getMovies(page: number) {
 		const {error, data}:any = await this.movieSer.getData(`${environment.URL_API}/movie/now_playing?language=en-US&page=${page}`);
@@ -53,9 +50,10 @@ export class HomeComponent implements OnInit {
 	}
 
 	/**
+	 * Metodo para abrir el modal de Detalle de la pelicula
 	 * 
-	 * @param content 
-	 * @param id 
+	 * @param content Modal a renderizar
+	 * @param id Id de la pelicula a mostrar
 	 */
 	async openModalMovieDetail(content: TemplateRef<any>, id: number) {
 		await this.getMovieDetail(id);
@@ -64,8 +62,9 @@ export class HomeComponent implements OnInit {
 	}
 
 	/**
+	 * Metodo para obtener los detalles de la pelicula a mostrar
 	 * 
-	 * @param movieId 
+	 * @param movieId Id de la pelicula a mostrar
 	 */
 	async getMovieDetail(movieId: number) {
 		this.objDetail = {...{}}
@@ -74,15 +73,13 @@ export class HomeComponent implements OnInit {
 		
 		if(!error) {
 			this.objDetail = {...data}
-			
-			//this.objDetail.vote_average = parseInt(this.objDetail.vote_average, 10);
-			console.log(this.objDetail.vote_average)
 		}
 	}
 
 	/**
 	 * Metodo para obtener los datos del elenco de una pelicula
-	 * @param movieId 
+	 * 
+	 * @param movieId Id de la pelicula a mostrar
 	 */
 	async getCast(movieId: number) {
 		let list:any = []
@@ -116,8 +113,9 @@ export class HomeComponent implements OnInit {
 	}
 
 	/**
+	 * Metodo para consultar los datos de la pagina seleccionada en la paginacion
 	 * 
-	 * @param page 
+	 * @param page Pagina a seleccionar
 	 */
 	selectPage(page: number) {	
 		this.currentPage = page;
