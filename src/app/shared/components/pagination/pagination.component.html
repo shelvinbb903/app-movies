@@ -1,0 +1,5 @@
+<div class="col-12 mt-3 text-center" role="toolbar" aria-label="Toolbar with button groups">
+    <button type="button" class="btn btn-primary m-1" (click)="select(1)"><i class="bi bi-chevron-double-left"></i></button>
+    <button type="button" [class]="currentPage == (i + 1) ? 'btn btn-primary m-1' : 'btn btn-outline-primary m-1'" (click)="select(i + 1)" *ngFor="let item of [].constructor(totalPages); let i = index">{{ i + 1 }}</button>
+    <button type="button" class="btn btn-primary m-1" (click)="select(totalPages)"><i class="bi bi-chevron-double-right"></i></button>
+</div>

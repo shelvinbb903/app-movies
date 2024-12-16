@@ -1,0 +1,84 @@
+<div class="container mt-3 mb-4 p-3">
+    
+    <nav class="navbar fixed-top navbar-light bg-lightrow">
+        <div class="input-group ps-5 pe-5">
+            <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="addon-wrapping" [(ngModel)]="search" (keyup.enter)="searchMovie()">
+            <button class="btn btn-primary" type="button" id="button-addon2" (click)="searchMovie()"><i class="bi bi-search"></i></button>
+        </div>
+    </nav>       
+    
+    
+    
+    <div class="row p-0 mt-4">        
+        <div class="col-md-6 col-xl-4 col-lg-4 col-xxl-4 col-sm-12 p-1" *ngFor="let item of listMovies" (click)="openModalMovieDetail(content, item.id)">
+            <div class="card list-movies">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4 ps-1 pt-0 pe-0 pb-0">
+                            <img [src]="'https://image.tmdb.org/t/p/w1280/' + item.poster_path" class="card-img-top portada">
+                        </div>
+                        <div class="col-8 lh-sm">
+                            <h6 class="card-title m-0">{{ item.title }}</h6>
+                            
+                            <p class="card-text fs-6 m-0 p-0"><small class="text-muted"><b>Estreno:</b> {{ item.release_date }}</small></p>
+                            <small class="text-muted text-sm-start">{{ item.overview }}</small>                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (onSelectPage)="selectPage($event)"></app-pagination>
+
+ 
+    
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h6 class="modal-title">{{ objDetail.title }}</h6>
+            <button type="button" class="btn-close btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img [src]="'https://image.tmdb.org/t/p/w1280/' + objDetail.poster_path" class="card-img-top portada">
+                        </div>
+                        <div class="col-8 p-0">
+                            <p class="card-text fs-6 m-0 p-0"><small class="text-muted"><b>Estreno:</b> {{ objDetail.release_date }}</small></p>
+                            
+                            <p class="card-text fs-6 m-0 p-0">
+                                <small class="text-muted text-sm-start">
+                                    <b>Calificación: </b><ng-template #t let-fill="fill">
+                                        <i class="bi-star-fill">                                           
+                                            <i class="bi-star-fill filled" *ngIf="fill > 0" [style.width.%]="fill"></i>                                            
+                                        </i>
+                                    </ng-template>
+                                    
+                                    <ngb-rating [(rate)]="objDetail.vote_average" [starTemplate]="t" [readonly]="true" [max]="10" />
+                                </small>
+                            </p>
+
+                            <small class="text-muted text-sm-start"><b>Elenco:</b> {{ objDetail.Cast  }}</small>
+                            
+                            <div class="col-12 p-0 m-0 p-0">
+                                <span class="badge bg-secondary m-1" *ngFor="let item of objDetail.genres">{{ item.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer p-1">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="modal.close('Close click')">Cerrar</button>
+        </div>
+    </ng-template>
+    
+</div>
+
+
